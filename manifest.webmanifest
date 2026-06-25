@@ -1,0 +1,18 @@
+{
+  "name": "日日清 · N2冲刺打卡",
+  "short_name": "日日清",
+  "description": "每日计划、强制打卡与JLPT N2冲刺安排",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8f6fb",
+  "theme_color": "#a979df",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
