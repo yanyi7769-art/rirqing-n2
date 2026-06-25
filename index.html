@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f3fb" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="日日清" />
+    <title>日日清 · 每日打卡</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">DAILY CHECK-IN</p>
+          <h1>日日清</h1>
+          <p class="today-line" id="dateText">--</p>
+        </div>
+        <div class="header-actions">
+          <div class="energy-badge">
+            <span id="energyFace" aria-hidden="true">◕‿◕</span>
+            <small id="energyText">今日能量加载中</small>
+          </div>
+          <button class="today-button" id="todayBtn" type="button">今天</button>
+        </div>
+      </header>
+
+      <section class="exam-mission" aria-label="N2考试倒计时">
+        <div class="exam-countdown">
+          <span>N2 冲刺</span>
+          <strong id="examDaysLeft">10</strong>
+          <small>天后考试</small>
+        </div>
+        <div class="exam-focus">
+          <p id="examDateLabel">2026年7月5日</p>
+          <h2 id="dailyFocus">今日重点：建立冲刺基线</h2>
+          <div class="exam-path" aria-hidden="true">
+            <span>词汇</span><i></i><span>语法</span><i></i><span>阅读</span><i></i><span>听力</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="report-card" aria-label="本周打卡报告">
+        <div class="report-head">
+          <div>
+            <p>WEEKLY REPORT</p>
+            <h2>日日清一周</h2>
+          </div>
+          <strong id="reportWeekRange">--</strong>
+        </div>
+        <div class="habit-cloud" id="habitCloud"></div>
+        <div class="profile-line">
+          <span class="avatar" id="avatarFace" aria-hidden="true">●ᴗ●</span>
+          <div>
+            <strong>我的坚持报告</strong>
+            <span id="selectedDateLabel">今天</span>
+          </div>
+          <p class="pep-talk" id="pepTalk">今天也一起清空任务吧。</p>
+        </div>
+        <div class="report-progress">
+          <div class="report-progress-title">
+            <span>任务完成率</span>
+            <strong id="progressPercent">0%</strong>
+          </div>
+          <div class="progress-track" aria-label="任务完成进度">
+            <span id="progressBar"></span>
+          </div>
+          <p class="enforce-note" id="enforceNote">先添加今天必须完成的任务。</p>
+        </div>
+        <div class="report-stats">
+          <div><span>本周完成</span><strong id="weekDoneCount">0</strong><small>项任务</small></div>
+          <div><span>今日完成</span><strong id="doneCount">0</strong><small id="leftCount">剩余 0</small></div>
+          <div><span>计划天数</span><strong id="plannedDaysCount">0</strong><small>本周</small></div>
+          <div><span>最长连续</span><strong id="streakCount">0</strong><small>天</small></div>
+        </div>
+        <button class="primary-action" id="completeDayBtn" type="button" disabled>
+          完成今日打卡
+        </button>
+      </section>
+
+      <section class="week-section panel" aria-label="本周任务总览">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">本周计划</p>
+            <h2 id="weekRange">--</h2>
+          </div>
+          <div class="stepper">
+            <button id="prevWeekBtn" type="button" aria-label="上一周" title="上一周">‹</button>
+            <button id="nextWeekBtn" type="button" aria-label="下一周" title="下一周">›</button>
+          </div>
+        </div>
+        <div class="week-board" id="weekGrid"></div>
+      </section>
+
+      <section class="task-panel panel">
+        <div class="section-heading task-heading">
+          <div>
+            <p class="section-kicker" id="taskDateKicker">今日任务</p>
+            <h2 id="taskPanelTitle">今天有哪些任务</h2>
+          </div>
+          <span class="task-total" id="taskTotal">0 项</span>
+        </div>
+
+        <form class="task-form" id="taskForm">
+          <label class="sr-only" for="taskInput" id="taskFormLabel">添加今天的计划</label>
+          <div class="input-row">
+            <input
+              id="taskInput"
+              name="task"
+              type="text"
+              maxlength="80"
+              autocomplete="off"
+              placeholder="写下今天必须完成的事"
+              required
+            />
+            <button type="submit" aria-label="添加任务" title="添加任务">+</button>
+          </div>
+        </form>
+        <div class="quick-add" aria-label="快捷添加任务">
+          <span>灵感：</span>
+          <button type="button" data-quick-task="喝够 8 杯水">💧 喝水</button>
+          <button type="button" data-quick-task="阅读 30 分钟">📖 阅读</button>
+          <button type="button" data-quick-task="运动 20 分钟">🏃 运动</button>
+          <button type="button" data-quick-task="睡前拉伸">🧘 拉伸</button>
+        </div>
+
+        <div class="toolbar">
+          <button class="filter-button is-active" type="button" data-filter="all">全部</button>
+          <button class="filter-button" type="button" data-filter="open">未完成</button>
+          <button class="filter-button" type="button" data-filter="done">已完成</button>
+        </div>
+
+        <ul class="task-list" id="taskList" aria-live="polite"></ul>
+        <div class="empty-state" id="emptyState">
+          <span aria-hidden="true">＋</span>
+          <p>还没有任务。先写下今天必须完成的第一件事。</p>
+        </div>
+      </section>
+
+      <section class="calendar-section panel" aria-label="计划日历">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">月度记录</p>
+            <h2 id="calendarTitle">--</h2>
+          </div>
+          <div class="stepper">
+            <button id="prevMonthBtn" type="button" aria-label="上个月" title="上个月">‹</button>
+            <button id="nextMonthBtn" type="button" aria-label="下个月" title="下个月">›</button>
+          </div>
+        </div>
+        <div class="calendar-weekdays" aria-hidden="true">
+          <span>一</span><span>二</span><span>三</span><span>四</span>
+          <span>五</span><span>六</span><span>日</span>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+        <div class="calendar-legend">
+          <span><i class="legend-dot has-plan"></i>有计划</span>
+          <span><i class="legend-dot complete"></i>已完成</span>
+          <span><i class="legend-dot missed"></i>未完成</span>
+        </div>
+      </section>
+
+      <section class="heatmap-section panel" aria-label="长期打卡记录">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">任务总览</p>
+            <h2>每日任务完成情况</h2>
+          </div>
+          <span class="heatmap-rate" id="overallRate">0%</span>
+        </div>
+        <div class="heatmap-scroll">
+          <div class="heatmap" id="heatmap"></div>
+        </div>
+        <div class="heatmap-legend">
+          <span>少</span>
+          <i></i><i></i><i></i><i></i>
+          <span>多</span>
+        </div>
+      </section>
+
+      <section class="history-section panel" aria-label="最近打卡记录">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">打卡足迹</p>
+            <h2>最近 7 天</h2>
+          </div>
+          <button class="text-button" id="resetBtn" type="button">清空数据</button>
+        </div>
+        <div class="history-strip" id="historyStrip"></div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="celebration" id="celebration" aria-hidden="true"></div>
+
+    <template id="taskTemplate">
+      <li class="task-item">
+        <label>
+          <input type="checkbox" />
+          <span class="fake-check" aria-hidden="true"></span>
+          <span class="task-icon" aria-hidden="true">✓</span>
+          <span class="task-title"></span>
+        </label>
+        <button type="button" class="delete-button" aria-label="删除任务" title="删除任务">×</button>
+      </li>
+    </template>
+
+    <script src="app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator && location.protocol !== "file:") {
+        navigator.serviceWorker.register("./sw.js");
+      }
+    </script>
+  </body>
+</html>
