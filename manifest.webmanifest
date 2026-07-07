@@ -1,7 +1,7 @@
 {
-  "name": "日日清 · N2冲刺打卡",
+  "name": "日日清 · TOEIC冲刺打卡",
   "short_name": "日日清",
-  "description": "每日计划、强制打卡与JLPT N2冲刺安排",
+  "description": "每日计划、强制打卡与TOEIC 600分冲刺安排",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
