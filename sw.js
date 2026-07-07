@@ -1,4 +1,4 @@
-const CACHE_NAME = "rirqing-n2-v1";
+const CACHE_NAME = "rirqing-toeic-v1";
 const APP_FILES = [
   "./",
   "./index.html",
